@@ -1,12 +1,13 @@
-#include "assert.h"
-#include "Operations.h"
-#include "Repository.h"
-#include "Project.h"
 #include <iostream>
 #include <string>
+#include "assert.h"
+#include "Repository.h"
+#include "Project.h"
+#include "Service.h"
 
 using namespace std;
 
+/*Teste la Project*/
 void TestProject()
 {
 	Project P1("New", 1, 25);
@@ -19,11 +20,11 @@ void TestProject()
 	rep.addElem(P3);
 	rep.addElem(P4);
 	assert(rep.dim() == 4);
-	
-	assert(strcmp(P1.getGitPath(),"New") == 0);
+
+	assert(strcmp(P1.getGitPath(), "New") == 0);
 	P1.setGitPath("Beautiful");
 	assert(strcmp(P1.getGitPath(), "Beautiful") == 0);
-	
+
 	assert(P2.getNoOfBranches() == 25);
 	P2.setNoOfBranches(10);
 	assert(P2.getNoOfBranches() == 10);
@@ -35,13 +36,17 @@ void TestProject()
 	Project P5("High", 14, 1);
 	assert(P5 == P4);
 
+	Project P6(P4);
+	assert(P6 == P4);
+
 	Project p;
 	assert(p.getGitPath() == NULL);
 	assert(p.getNoOfBranches() == 0);
 	assert(p.getTotalNoOfCommits() == 0);
 }
 
-void TestRepository() 
+/*Teste la Repository*/
+void TestRepository()
 {
 	Project P1("Fancy", 43, 15);
 	Project P2("Glorious", 53, 0);
@@ -53,10 +58,10 @@ void TestRepository()
 	rep.addElem(P2);
 	rep.addElem(P3);
 	rep.addElem(P4);
-	 
+
 	assert(rep.dim() == 4);
 	rep.updateElem(P2, "New", 1, 97);
-	assert(strcmp(rep.getItemFromPos(1).getGitPath(),"New") == 0);
+	assert(strcmp(rep.getItemFromPos(1).getGitPath(), "New") == 0);
 	assert(rep.getItemFromPos(1).getNoOfBranches() == 1);
 
 	rep.delElem(P3);
@@ -66,46 +71,71 @@ void TestRepository()
 	assert(rep.getAll()[2] == P4);
 }
 
-void TestFilterProjectWithRepo()
+/*Teste la Service*/
+void TestService()
 {
 	Project P1("New", 15, 25);
 	Project P2("Old", 25, 35);
 	Project P3("Medium", 14, 27);
 	Project P4("High", 17, 36);
-	Repository rep;
-	rep.addElem(P1);
-	rep.addElem(P2);
-	rep.addElem(P3);
-	rep.addElem(P4);
-	assert(rep.dim() == 4);
+	Service ser;
+	ser.addProject(P1);
+	ser.addProject(P2);
+	ser.addProject(P3);
+	ser.addProject(P4);
+	assert(ser.dim() == 4);
+	ser.delProject(P2);
+	assert(ser.dim() == 3);
+	ser.updateProject(P1, "Outrageous", 4, 34);
+	assert(ser.getItemFromPos(0).getNoOfBranches() == 4);
+	assert(ser.getItemFromPos(0).getTotalNoOfCommits() == 34);
+	assert(ser.getAll()[1] == P4);
+}
+
+/*Teste la cerinta 1.*/
+void TestFilterProject()
+{
+	Project P1("New", 15, 25);
+	Project P2("Old", 25, 35);
+	Project P3("Medium", 14, 27);
+	Project P4("High", 17, 36);
+	Service ser;
+	ser.addProject(P1);
+	ser.addProject(P2);
+	ser.addProject(P3);
+	ser.addProject(P4);
+	assert(ser.dim() == 4);
 	Project results[10];
 	int m = 0;
-	filterProject(rep, results, m, 15, 25);
+	ser.filterProject(ser, results, m, 15, 25);
 	assert((m == 3) && (results[0] == P1) && (results[1] == P2) && (results[2] == P4));
 }
 
-void TestDeleteProjectWithRepo()
+/*Teste la cerinta 2.*/
+void TestDeleteProjects()
 {
+	Service s;
 	Project P1("New", 1, 25);
 	Project P2("Old", 0, 1);
 	Project P3("Medium", 0, 0);
 	Project P4("High", 14, 1);
-	Repository rep;
-	rep.addElem(P1);
-	rep.addElem(P2);
-	rep.addElem(P3);
-	rep.addElem(P4);
-	assert(rep.dim() == 4);
-	delProject(rep);
-	assert(rep.dim() == 2);
+	s.addProject(P1);
+	s.addProject(P2);
+	s.addProject(P3);
+	s.addProject(P4);
+	assert(s.dim() == 4);
+	s.delProjects(s);
+	assert(s.dim() == 2);
 }
 
+/*Aici apelez toate testele de mai sus*/
 void MainTests()
 {
 	cout << "First Tests" << endl;
-	TestFilterProjectWithRepo();
-	TestDeleteProjectWithRepo();
 	TestProject();
 	TestRepository();
+	TestService();
+	TestDeleteProjects();
+	TestFilterProject();
 	cout << "Succesful";
 }

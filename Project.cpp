@@ -1,7 +1,8 @@
 #include <string.h>
 #include "Project.h"
 
-Project::Project() 
+/*Constructorul*/
+Project::Project()
 {
 	gitPath = NULL;
 	noOfBranches = 0;
@@ -22,34 +23,39 @@ Project::Project(const Project& p) {
 	this->noOfBranches = p.noOfBranches;
 }
 
+/*Returnarea valorii lui noOfBranches*/
 int Project::getNoOfBranches() {
 	return noOfBranches;
 }
 
+/*Schimbarea valorii lui totalNoOfCommits*/
 void Project::setNoOfBranches(int newNoOfBranches) {
 	noOfBranches = newNoOfBranches;
 }
 
+/*Returnarea valorii lui totalnoOfCommits*/
 int Project::getTotalNoOfCommits() {
 	return totalNoOfCommits;
 }
 
+/*Schimabarea valorii lui totalNoOfCommits*/
 void Project::setTotalNoOfCommits(int newTotalNoOfCommits) {
 	totalNoOfCommits = newTotalNoOfCommits;
 }
 
-
+/*Returnarea valorii lui GitPath*/
 char* Project::getGitPath() {
 	return gitPath;
 }
 
-
+/*Schimbarea valorii la GitPath*/
 void Project::setGitPath(const char* n) {
 	if (gitPath) delete[]gitPath;
 	gitPath = new char[strlen(n) + 1];
 	strcpy_s(gitPath, strlen(n) + 1, n);
 }
 
+/*Destructorul*/
 Project::~Project() {
 	if (gitPath) delete[]gitPath;
 	gitPath = NULL;

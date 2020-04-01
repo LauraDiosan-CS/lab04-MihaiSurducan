@@ -44,7 +44,7 @@ Service::~Service() {
 }
 
 /*Cerinta 1.*/
-void Service::filterProject(Service& ser, Project projectFilter[], int& m, int k, int l)
+void Service::filterProjects(Service& ser, Project projectFilter[], int& m, int k, int l)
 {
 	Project* projects = ser.getAll();
 	for (int i = 0; i < ser.dim(); i++)

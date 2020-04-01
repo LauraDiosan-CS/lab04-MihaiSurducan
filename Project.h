@@ -1,4 +1,6 @@
 #pragma once
+#include <ostream>
+using namespace std;
 
 class Project {
 private:
@@ -18,5 +20,6 @@ public:
 	void setNoOfBranches(int);
 	void setTotalNoOfCommits(int);
 	bool operator==(const Project&);
+	friend ostream& operator<<(ostream& os, const Project& p);
 	~Project();
 };

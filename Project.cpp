@@ -1,4 +1,5 @@
 #include <string.h>
+#include <ostream>
 #include "Project.h"
 
 /*Constructorul*/
@@ -75,4 +76,10 @@ Project& Project::operator=(const Project& p) {
 
 bool Project::operator==(const Project& p) {
 	return (strcmp(gitPath, p.gitPath) == 0) and (totalNoOfCommits == p.totalNoOfCommits) and (noOfBranches == p.noOfBranches);
+}
+
+ostream& operator<<(ostream& os, const Project& p)
+{
+	os << "GitPath - " << p.gitPath << ", NoOBranches - " << p.noOfBranches << ",TotalNoOfCommits - " << p.totalNoOfCommits;
+	return os;
 }

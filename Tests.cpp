@@ -107,7 +107,7 @@ void TestFilterProject()
 	assert(ser.dim() == 4);
 	Project results[10];
 	int m = 0;
-	ser.filterProject(ser, results, m, 15, 25);
+	ser.filterProjects(ser, results, m, 15, 25);
 	assert((m == 3) && (results[0] == P1) && (results[1] == P2) && (results[2] == P4));
 }
 
@@ -137,5 +137,5 @@ void MainTests()
 	TestService();
 	TestDeleteProjects();
 	TestFilterProject();
-	cout << "Succesful";
+	cout << "Succesful" << endl;
 }

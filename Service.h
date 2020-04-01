@@ -14,6 +14,6 @@ public:
 	Project getItemFromPos(int);
 	Project* getAll();
 	void delProjects(Service& ser);
-	void filterProject(Service& rep, Project projectFilter[], int& m, int k, int l);
+	void filterProjects(Service& rep, Project projectFilter[], int& m, int k, int l);
 	~Service();
 };
